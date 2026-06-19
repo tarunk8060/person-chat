@@ -12,6 +12,7 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
+
 def generate_response(persona, query, context):
     context_text = "\n".join(context[0])
 
@@ -37,8 +38,8 @@ Respond appropriately.
 """
 
     response = client.models.generate_content(
-    model="gemini-1.5-flash",
-    contents=prompt
-)
+        model="gemini-1.5-flash",
+        contents=prompt
+    )
 
     return response.text
