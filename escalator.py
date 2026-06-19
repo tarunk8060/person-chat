@@ -1,8 +1,10 @@
-def should_escalate(message):
-    sensitive_words = ["refund", "billing", "lawsuit", "legal"]
+def should_escalate(query):
+    critical_words = ["lawsuit", "legal", "complaint", "court"]
 
-    for word in sensitive_words:
-        if word in message.lower():
+    query = query.lower()
+
+    for word in critical_words:
+        if word in query:
             return True
 
     return False
