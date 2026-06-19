@@ -1,45 +1,36 @@
-import os
-from dotenv import load_dotenv
-from google import genai
-import streamlit as st
-
-load_dotenv()
-
-api_key = os.getenv("GEMINI_API_KEY")
-
-if not api_key:
-    api_key = st.secrets["GEMINI_API_KEY"]
-
-client = genai.Client(api_key=api_key)
-
-
 def generate_response(persona, query, context):
     context_text = "\n".join(context[0])
 
-    prompt = f"""
-You are an AI customer support agent.
-
-Customer Persona:
-{persona}
-
-Knowledge Base Context:
+    if persona == "Technical Expert":
+        return f"""
+Technical Analysis:
 {context_text}
 
-User Question:
-{query}
-
-Instructions:
-- Technical Expert → detailed technical explanation
-- Frustrated User → empathetic and simple
-- Business Executive → short and business-focused
-- General User → clear normal explanation
-
-Respond appropriately.
+Issue detected: {query}
+Suggested fix: Check API configuration and credentials.
 """
 
-    response = client.models.generate_content(
-        model="gemini-1.5-flash",
-        contents=prompt
-    )
+    elif persona == "Frustrated User":
+        return f"""
+I understand your frustration.
 
-    return response.text
+Possible solution:
+{context_text}
+
+We are working to resolve your issue quickly.
+"""
+
+    elif persona == "Business Executive":
+        return f"""
+Executive Summary:
+{context_text}
+
+Business impact:
+Payment or service failures may affect revenue and customer trust.
+"""
+
+    else:
+        return f"""
+Support Response:
+{context_text}
+"""
