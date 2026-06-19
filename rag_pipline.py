@@ -4,12 +4,13 @@ docs = [
     "Billing refunds take 5-7 days."
 ]
 
+
 def load_documents():
     pass
 
+
 def retrieve(query):
     query = query.lower()
-
     matches = []
 
     for doc in docs:
