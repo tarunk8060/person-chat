@@ -1,8 +1,7 @@
-import streamlit as st
-from srcn.cf import classify_persona
-from srcn.rag_pipline import load_documents, retrieve
-from srcn.gen import generate_response
-from srcn.escalator import should_escalate
+from cf import classify_persona
+from rag_pipline import load_documents, retrieve
+from gen import generate_response
+from escalator import should_escalate
 
 load_documents()
 
