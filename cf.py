@@ -12,6 +12,7 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
+
 def classify_persona(message):
     msg = message.lower()
 
@@ -42,7 +43,7 @@ Return category only.
 """
 
     response = client.models.generate_content(
-       model="gemini-1.5-flash",
+        model="gemini-1.5-flash",
         contents=prompt
     )
 
