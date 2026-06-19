@@ -13,18 +13,32 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 def classify_persona(message):
+    msg = message.lower()
+
+    technical_words = ["api", "token", "error", "bug", "server", "database"]
+    frustrated_words = ["angry", "worst", "hate", "urgent", "immediately"]
+    business_words = ["revenue", "timeline", "business", "impact", "client"]
+
+    if any(word in msg for word in technical_words):
+        return "Technical Expert"
+
+    if any(word in msg for word in frustrated_words):
+        return "Frustrated User"
+
+    if any(word in msg for word in business_words):
+        return "Business Executive"
+
     prompt = f"""
-Classify this user message into exactly one category:
-
-1. Technical Expert
-2. Frustrated User
-3. Business Executive
-4. General User
-
-Return ONLY the category name.
+Classify into one category only:
+Technical Expert
+Frustrated User
+Business Executive
+General User
 
 Message:
 {message}
+
+Return category only.
 """
 
     response = client.models.generate_content(
